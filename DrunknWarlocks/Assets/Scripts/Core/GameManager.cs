@@ -87,7 +87,7 @@ public class GameManager : NetworkBehaviour
             RegisterPlayer(kvp.Value);
         }
 
-        player.transform.position = new Vector3(spawnX, 0.5f, spawnZ);
+        //player.transform.position = new Vector3(spawnX, 0.5f, spawnZ);
 
         InvokeRepeating(nameof(CheckWinCondition), 1f, 1f);
     }
