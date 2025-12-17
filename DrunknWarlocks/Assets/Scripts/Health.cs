@@ -19,6 +19,8 @@ public class Health : NetworkBehaviour
             RoundManager.Instance.RegisterPlayer(this);
     }
 
+    [SyncVar] public uint lastAttacker;
+
 
     [Server]
     public void TakeDamage(int amount, uint attackerNetId)
@@ -31,6 +33,8 @@ public class Health : NetworkBehaviour
             currentHp = 0;
             Die(attackerNetId);
         }
+        lastAttacker = attackerNetId;
+
     }
 
     [Server]
@@ -42,6 +46,18 @@ public class Health : NetworkBehaviour
         RpcOnDeath();
 
         // Later: RoundManager will handle respawn/round end
+        
+        // award kill points
+        if (NetworkServer.spawned.TryGetValue(attackerNetId, out var attackerIdentity))
+        {
+            var stats = attackerIdentity.GetComponent<PlayerStats>();
+            if (stats != null)
+            {
+                stats.AddKill();
+                stats.AddPoints(10); // kill points
+            }
+        }
+
     }
 
     [ClientRpc]
