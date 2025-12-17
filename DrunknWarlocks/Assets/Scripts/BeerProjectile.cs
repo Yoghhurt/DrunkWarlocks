@@ -3,33 +3,48 @@ using UnityEngine;
 
 public class BeerProjectile : NetworkBehaviour
 {
-    public float speed = 15f;
-    public int damage = 10;
+    [Header("Stats")]
+    public float speed = 18f;
+    public int damage = 25;
+    public float lifeTime = 3f;
+
+    [SyncVar] public uint ownerNetId;
+
+    Rigidbody rb;
 
     public override void OnStartServer()
     {
-        Invoke(nameof(DestroySelf), 5f);
+        rb = GetComponent<Rigidbody>();
+        Invoke(nameof(ServerSelfDestruct), lifeTime);
     }
 
-    void FixedUpdate()
+    [Server]
+    public void ServerLaunch(Vector3 direction, uint owner)
     {
-        if (!isServer) return;
-
-        transform.position += transform.forward * speed * Time.fixedDeltaTime;
+        ownerNetId = owner;
+        rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = direction.normalized * speed;
     }
 
     [ServerCallback]
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerHealth health))
+        // If you use non-trigger collider, change to OnCollisionEnter
+        var health = other.GetComponent<Health>();
+        if (health != null && health.netId != ownerNetId)
         {
-            health.TakeDamage(damage);
-            DestroySelf();
+            health.TakeDamage(damage, ownerNetId);
+            ServerSelfDestruct();
+        }
+        else
+        {
+            // Optionally collide with walls too
+            // If other is environment layer -> destroy
         }
     }
 
     [Server]
-    void DestroySelf()
+    void ServerSelfDestruct()
     {
         NetworkServer.Destroy(gameObject);
     }
