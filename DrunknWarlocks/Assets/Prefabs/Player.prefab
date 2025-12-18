@@ -18,8 +18,9 @@ GameObject:
   - component: {fileID: -3444637314902464021}
   - component: {fileID: -340931623090541453}
   - component: {fileID: 951462165433072696}
-  - component: {fileID: -7091041609431016916}
   - component: {fileID: 1970752150987309816}
+  - component: {fileID: 2008203937252392167}
+  - component: {fileID: -1793252589373162492}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -247,24 +248,7 @@ MonoBehaviour:
   currentHp: 0
   maxHp: 100
   isDead: 0
---- !u!114 &-7091041609431016916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4479994873424292654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e0e61d14968fc4fb3d76fc4b78f692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  beerProjectilePrefab: {fileID: 922411341168305962, guid: cb16279da3d550642874ee67e6e67ce9, type: 3}
-  firePoint: {fileID: 0}
-  cooldown: 1
+  lastAttacker: 0
 --- !u!114 &1970752150987309816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,3 +261,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e2572326bab1146bed0f8f5fadf9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  aimLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  aimIndicator: {fileID: 0}
+--- !u!114 &2008203937252392167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479994873424292654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac46dd4fbe98d48a2ce91e99fefd05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  vodkaUnlocked: 0
+  wineUnlocked: 0
+  whiskeyUnlocked: 0
+  damageLevel: 0
+  cooldownLevel: 0
+--- !u!114 &-1793252589373162492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479994873424292654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0039cd2c346e8c4b9427530113d4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  allAbilities:
+  - {fileID: 11400000, guid: bc9c82bdb4d9cd647a8fb55b2d8ba083, type: 2}
+  - {fileID: 11400000, guid: 90c826419ed7d3f4c97b55dadf86efbd, type: 2}
+  - {fileID: 11400000, guid: 4302eed54c6be07479b334355291d5ed, type: 2}
+  - {fileID: 11400000, guid: 9d9425b9842b57c41bb232981c9bcb7b, type: 2}
+  firePoint: {fileID: 0}
+  equippedAbility: 0
